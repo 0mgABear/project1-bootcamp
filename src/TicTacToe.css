@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap");
+
+* {
+  font-family: Comfortaa;
+  font-size: 3vw;
+}
+
+.square {
+  display: flex;
+  border: 1px solid black;
+  width: 15vw;
+  height: 20vh;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  font-family: Comfortaa;
+  font-size: 2rem;
+  user-select: none;
+  cursor: pointer;
+}
+
+.status {
+  padding: 5vh;
+}
+
+.row:nth-child(1) > * {
+  border-top: none;
+}
+
+.row:nth-child(3) > * {
+  border-bottom: none;
+}
+
+.square:nth-child(1) {
+  border-left: none;
+}
+
+.square:nth-child(3) {
+  border-right: none;
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+}
+
+.board {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gameboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.button {
+  margin: 6vh;
+  font-size: 0.5rem;
+}
+
+.winner {
+  background-color: lightgreen;
+}
+
+.draw {
+  color: green;
+}
