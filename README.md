@@ -1,6 +1,6 @@
 # Rocket Academy Coding Bootcamp: Project 1: Frontend App (By Yeo Yi)
 
-https://bc.rocketacademy.co/1-frontend/1.p-frontend-app
+https://bootcamp.rocketacademy.co/1-frontend/1.p-frontend-app
 
 ## Available Scripts
 
@@ -46,3 +46,8 @@ b. Consider using some form of animation (like a strikethroug across the winning
 # Step 5: Other Features
 
 a. Game Reset - Implemented Using Conditional Rendering
+
+# Step 6 : Post-Bootcamp Portfolio Touch Up
+
+a. Refactored all code into functional components instead of using this.state.
+b. Using useEffect() hook to ensure auto updating of UI to show which player is the winner.
