@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./TicTacToe.css";
 
 const Square = (props) => {
@@ -42,94 +42,81 @@ const calculateDraw = (squares) => {
   }
 };
 
-export class Board extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      squares: Array(9).fill(null),
-      isX: true,
-      winCells: [],
-    };
-  }
+export function Board() {
+  const [squares, setSquares] = useState(Array(9).fill(null));
+  const [isX, setIsX] = useState(true);
+  const [winCells, setWincells] = useState([]);
+  const [status, setStatus] = useState("");
+  const [gameOver, setGameOver] = useState(false);
 
-  handleClick(i) {
-    const squares = this.state.squares.slice();
+  useEffect(() => {}, [gameOver]);
 
-    //set player
-    //set everything : all the squares, turn, set the winner
-    const tiles = calculateWinner(squares).tiles; //a,b,c of the//lagging behind
-    console.log(squares);
-    if (calculateWinner(squares) || squares[i] || calculateDraw(squares)) {
-      if (calculateWinner(squares)) {
-        const winningTiles = calculateWinner(squares).tiles;
-        this.setState({ winCells: winningTiles }, () => {
-          console.log(this.state.winCells);
-        });
-      }
-      return;
-    }
-    squares[i] = this.state.isX ? "X" : "O"; //duplicate
-    this.setState({ squares: squares, isX: !this.state.isX });
-  }
-
-  restartGame = () => {
-    this.setState({
-      squares: Array(9).fill(null),
-      isX: true,
-      winCells: [],
-    });
-  };
-
-  renderSquare(i) {
+  const square = (i) => {
     return (
       <Square
-        player={this.state.squares[i]}
-        onClick={() => this.handleClick(i)}
-        winner={this.state.winCells.includes(i)}
+        player={squares[i]}
+        onClick={() => handleClick(i)}
+        winner={winCells.includes(i)}
       />
     );
-  }
+  };
 
-  render() {
-    const winConditions = calculateWinner(this.state.squares);
-    const draw = calculateDraw(this.state.squares);
-    const winner = winConditions.winningPlayer;
-
-    let status;
-    if (winner) {
-      status = "Winner is: " + winner;
-    } else if (draw) {
-      status = <div className="draw">Game Over! Draw</div>;
-    } else {
-      status = "Next Player: " + (this.state.isX ? "X" : "O");
+  const handleClick = (i) => {
+    if (calculateWinner(squares) || squares[i] || calculateDraw(squares)) {
+      return;
     }
 
-    return (
-      <div className="gameboard">
-        <div className="status">{status}</div>
-        <div className="board">
-          <div className="row">
-            {this.renderSquare(0)}
-            {this.renderSquare(1)}
-            {this.renderSquare(2)}
-          </div>
-          <div className="row">
-            {this.renderSquare(3)}
-            {this.renderSquare(4)}
-            {this.renderSquare(5)}
-          </div>
-          <div className="row">
-            {this.renderSquare(6)}
-            {this.renderSquare(7)}
-            {this.renderSquare(8)}
-          </div>
-          {(winner || draw) && (
-            <button className="button" onClick={this.restartGame}>
-              Restart!
-            </button>
-          )}
+    const newSquares = [...squares];
+    newSquares[i] = isX ? "X" : "O";
+    setSquares(newSquares);
+    setIsX(!isX);
+
+    if (calculateWinner(newSquares)) {
+      const { winningPlayer, tiles } = calculateWinner(newSquares);
+      setWincells(tiles);
+      setStatus(`Winner is ${winningPlayer}`);
+      setGameOver(true);
+    } else if (calculateDraw(newSquares)) {
+      setStatus("Draw!");
+      setGameOver(true);
+    } else {
+      setStatus(`Next Player: ${!isX ? "X" : "O"}`);
+    }
+  };
+
+  const restartGame = () => {
+    setSquares(Array(9).fill(null));
+    setIsX(true);
+    setWincells([]);
+    setGameOver(false);
+    setStatus("");
+  };
+
+  return (
+    <div className="gameboard">
+      <div className="status">{status}</div>
+      <div className="board">
+        <div className="row">
+          {square(0)}
+          {square(1)}
+          {square(2)}
         </div>
+        <div className="row">
+          {square(3)}
+          {square(4)}
+          {square(5)}
+        </div>
+        <div className="row">
+          {square(6)}
+          {square(7)}
+          {square(8)}
+        </div>
+        {gameOver && (
+          <button className="button" onClick={() => restartGame()}>
+            Restart!
+          </button>
+        )}
       </div>
-    );
-  }
+    </div>
+  );
 }
