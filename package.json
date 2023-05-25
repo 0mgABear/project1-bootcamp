@@ -2,13 +2,17 @@
   "name": "project1-bootcamp",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://0mgabear.github.io",
   "dependencies": {
+    "gh-pages": "^5.0.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.1",
     "styled-components": "^5.3.6"
   },
   "scripts": {
+    "pre-deploy": "npm run build",
+    "deploy": "gh-pages -b master -d build",
     "start": "react-scripts start",
     "build": "react-scripts build"
   },
