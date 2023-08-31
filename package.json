@@ -1,5 +1,5 @@
 {
-  "name": "project1-bootcamp",
+  "name": "tictactoe",
   "version": "0.1.0",
   "private": true,
   "homepage": "https://0mgabear.github.io",
@@ -12,7 +12,7 @@
   },
   "scripts": {
     "pre-deploy": "npm run build",
-    "deploy": "gh-pages -b master -d build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build"
   },
